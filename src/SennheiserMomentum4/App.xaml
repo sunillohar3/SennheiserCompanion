@@ -1,0 +1,33 @@
+<Application x:Class="SennheiserMomentum4.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:SennheiserMomentum4.Converters"
+             xmlns:viewmodels="clr-namespace:SennheiserMomentum4.ViewModels"
+             xmlns:views="clr-namespace:SennheiserMomentum4.Views">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/SennheiserTheme.xaml" />
+                <ResourceDictionary Source="Resources/HeadphoneArtwork.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+            <converters:EqualityToBooleanConverter x:Key="EqualityConverter" />
+
+            <DataTemplate DataType="{x:Type viewmodels:DashboardViewModel}">
+                <views:DashboardPage />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:SoundViewModel}">
+                <views:SoundPage />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:NoiseControlViewModel}">
+                <views:NoiseControlPage />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DeviceViewModel}">
+                <views:DevicePage />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
+                <views:SettingsPage />
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

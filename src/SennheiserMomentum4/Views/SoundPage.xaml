@@ -1,0 +1,146 @@
+<UserControl x:Class="SennheiserMomentum4.Views.SoundPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="900">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="28,24">
+        <StackPanel MaxWidth="820" HorizontalAlignment="Stretch">
+
+            <!-- Title -->
+            <TextBlock Text="Equalizer" Style="{StaticResource AppHeaderStyle}" />
+            <TextBlock Text="5-Band internal DSP tuning for Sennheiser MOMENTUM 4" 
+                       Style="{StaticResource SubheadStyle}" Margin="0,4,0,20" />
+
+            <!-- Preset Selection Bar -->
+            <Border Style="{DynamicResource ModernCardStyle}" Margin="0,0,0,20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Sound Profile Preset" Style="{StaticResource SectionHeaderStyle}" Margin="0,0,0,10" />
+                        <ComboBox ItemsSource="{Binding Presets}" 
+                                  SelectedItem="{Binding SelectedPreset, Mode=TwoWay}"
+                                  DisplayMemberPath="Name"
+                                  Width="220" HorizontalAlignment="Left"
+                                  Padding="10,6" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+                        <Button Margin="0,0,6,0" Padding="12,6" Command="{Binding ToggleBassBoostCommand}">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource SecondaryButtonStyle}">
+                                    <Setter Property="Content" Value="💥 Bass Boost" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsBassBoostEnabled}" Value="True">
+                                            <Setter Property="Content" Value="💥 Bass Boost (Active)" />
+                                            <Setter Property="Background" Value="{DynamicResource SennheiserRedBrush}" />
+                                            <Setter Property="Foreground" Value="White" />
+                                            <Setter Property="BorderBrush" Value="{DynamicResource SennheiserRedBrush}" />
+                                            <Setter Property="FontWeight" Value="SemiBold" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Button Style="{StaticResource SecondaryButtonStyle}" 
+                                Content="Reset" Margin="0,0,6,0"
+                                Command="{Binding ResetToNeutralCommand}" />
+                        <Button Style="{StaticResource SecondaryButtonStyle}" 
+                                Content="Delete Preset"
+                                Command="{Binding DeleteCurrentPresetCommand}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- 5-Band Vertical Slider Console -->
+            <Border Style="{DynamicResource ModernCardStyle}" Margin="0,0,0,20">
+                <StackPanel>
+                    <Grid Margin="0,0,0,16">
+                        <TextBlock Text="DSP Frequency Bands (-6 dB to +6 dB)" Style="{StaticResource SectionHeaderStyle}" />
+                        <TextBlock Text="Double-click or drag thumb to adjust" Style="{StaticResource CaptionStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <!-- Horizontal layout of the 5 bands -->
+                    <ItemsControl ItemsSource="{Binding ActiveBands}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="5" Rows="1" Height="240" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="8,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Value in dB -->
+                                    <TextBlock Grid.Row="0" Text="{Binding GainDb, StringFormat={}{0:F1} dB}" 
+                                               HorizontalAlignment="Center" FontSize="12" FontWeight="SemiBold"
+                                               Foreground="{DynamicResource SennheiserRedBrush}" Margin="0,0,0,6" />
+
+                                    <!-- Vertical Slider -->
+                                    <Slider Grid.Row="1" Orientation="Vertical"
+                                            Minimum="-6" Maximum="6" SmallChange="0.5" LargeChange="1.0"
+                                            Value="{Binding GainDb, Mode=TwoWay}"
+                                            HorizontalAlignment="Center"
+                                            Focusable="True" />
+
+                                    <!-- Band Name -->
+                                    <TextBlock Grid.Row="2" Text="{Binding Name}" 
+                                               HorizontalAlignment="Center" FontSize="13" FontWeight="Medium"
+                                               Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,8,0,2" />
+
+                                    <!-- Frequency Label -->
+                                    <TextBlock Grid.Row="3" Text="{Binding FrequencyLabel}" 
+                                               HorizontalAlignment="Center" Style="{StaticResource CaptionStyle}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Button Style="{StaticResource SennheiserAccentButtonStyle}"
+                            Content="Apply EQ to Headphone DSP"
+                            HorizontalAlignment="Left"
+                            Margin="0,20,0,0"
+                            Command="{Binding BandGainChangedCommand}" />
+                </StackPanel>
+            </Border>
+
+            <!-- Save Custom Preset Section -->
+            <Border Style="{DynamicResource ModernCardStyle}" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Save as Custom Preset" Style="{StaticResource SectionHeaderStyle}" Margin="0,0,0,10" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Text="{Binding CustomPresetNameInput, UpdateSourceTrigger=PropertyChanged}"
+                                 Margin="0,0,12,0" Padding="10,6" VerticalAlignment="Center"
+                                 FontSize="13" />
+                        <Button Grid.Column="1" Style="{StaticResource SecondaryButtonStyle}"
+                                Content="Save Preset"
+                                Command="{Binding SaveNewPresetCommand}" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Status Banner -->
+            <TextBlock Text="{Binding StatusMessage}" 
+                       Style="{StaticResource CaptionStyle}"
+                       Foreground="{DynamicResource SennheiserRedBrush}"
+                       Margin="4,0,0,0" />
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

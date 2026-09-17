@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{45BD4625-8FE2-45FD-A220-6A5D17979A57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SennheiserMomentum4", "src\SennheiserMomentum4\SennheiserMomentum4.csproj", "{64E42D85-05A0-4053-B997-74E04C2F4A0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5A0FB081-2115-4691-8A48-7EF606867CAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SennheiserMomentum4.Tests", "tests\SennheiserMomentum4.Tests\SennheiserMomentum4.Tests.csproj", "{274AD989-A887-4FAA-B101-6729DC43EA87}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64E42D85-05A0-4053-B997-74E04C2F4A0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64E42D85-05A0-4053-B997-74E04C2F4A0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64E42D85-05A0-4053-B997-74E04C2F4A0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64E42D85-05A0-4053-B997-74E04C2F4A0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{274AD989-A887-4FAA-B101-6729DC43EA87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{274AD989-A887-4FAA-B101-6729DC43EA87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{274AD989-A887-4FAA-B101-6729DC43EA87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{274AD989-A887-4FAA-B101-6729DC43EA87}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{64E42D85-05A0-4053-B997-74E04C2F4A0E} = {45BD4625-8FE2-45FD-A220-6A5D17979A57}
+		{274AD989-A887-4FAA-B101-6729DC43EA87} = {5A0FB081-2115-4691-8A48-7EF606867CAA}
+	EndGlobalSection
+EndGlobal

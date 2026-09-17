@@ -1,0 +1,164 @@
+<UserControl x:Class="SennheiserMomentum4.Views.DevicePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="900">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="28,24">
+        <StackPanel MaxWidth="800" HorizontalAlignment="Stretch">
+
+            <!-- Title -->
+            <TextBlock Text="Device Information" Style="{StaticResource AppHeaderStyle}" />
+            <TextBlock Text="Hardware identifiers, firmware revisions, and connection parameters" 
+                       Style="{StaticResource SubheadStyle}" Margin="0,4,0,20" />
+
+            <!-- Primary Device Card -->
+            <Border Style="{DynamicResource ModernCardStyle}" Margin="0,0,0,20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Margin="0,0,20,0" VerticalAlignment="Center"
+                            CornerRadius="10" Background="Transparent"
+                            Padding="2" Width="96" Height="96">
+                        <Image Source="{Binding ProductImageSource}"
+                               Stretch="Uniform"
+                               RenderOptions.BitmapScalingMode="HighQuality" />
+                    </Border>
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding DeviceInfo.DeviceName}" Style="{StaticResource SectionHeaderStyle}" FontSize="18" />
+                        <TextBlock Text="{Binding DeviceInfo.ModelNumber, StringFormat={}Model: {0}}" Style="{StaticResource SubheadStyle}" Margin="0,2,0,10" />
+
+                        <WrapPanel Orientation="Horizontal">
+                            <Border Background="{DynamicResource CardSecondaryBrush}" CornerRadius="6" Padding="8,4" Margin="0,0,8,4">
+                                <TextBlock Text="{Binding DeviceInfo.State, StringFormat={}Status: {0}}" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource SuccessBrush}" />
+                            </Border>
+
+                            <Border Background="{DynamicResource CardSecondaryBrush}" CornerRadius="6" Padding="8,4" Margin="0,0,8,4">
+                                <TextBlock Text="{Binding DeviceInfo.BatteryPercentage, StringFormat={}Battery: {0}%}" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                            </Border>
+
+                            <Border Background="{DynamicResource CardSecondaryBrush}" CornerRadius="6" Padding="8,4" Margin="0,0,8,4">
+                                <TextBlock Text="{Binding ColorFinishDisplay, StringFormat={}Finish: {0}}" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource SennheiserRedBrush}" />
+                            </Border>
+                        </WrapPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Detailed Specs Grid -->
+            <Border Style="{DynamicResource ModernCardStyle}" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Hardware &amp; System Specifications" Style="{StaticResource SectionHeaderStyle}" Margin="0,0,0,16" />
+
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Firmware Version" Foreground="{DynamicResource TextSecondaryBrush}" />
+                        <TextBlock Grid.Column="1" Text="{Binding DeviceInfo.FirmwareVersion}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                    </Grid>
+                    <Separator Background="{DynamicResource BorderSubtleBrush}" Margin="0,0,0,12" />
+
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Hardware Edition" Foreground="{DynamicResource TextSecondaryBrush}" />
+                        <TextBlock Grid.Column="1" Text="{Binding ColorFinishDisplay}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                    </Grid>
+                    <Separator Background="{DynamicResource BorderSubtleBrush}" Margin="0,0,0,12" />
+
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Hardware Revision" Foreground="{DynamicResource TextSecondaryBrush}" />
+                        <TextBlock Grid.Column="1" Text="{Binding DeviceInfo.HardwareVersion}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                    </Grid>
+                    <Separator Background="{DynamicResource BorderSubtleBrush}" Margin="0,0,0,12" />
+
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Serial Number" Foreground="{DynamicResource TextSecondaryBrush}" />
+                        <TextBlock Grid.Column="1" Text="{Binding DeviceInfo.SerialNumber}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                    </Grid>
+                    <Separator Background="{DynamicResource BorderSubtleBrush}" Margin="0,0,0,12" />
+
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Bluetooth Address" Foreground="{DynamicResource TextSecondaryBrush}" />
+                        <TextBlock Grid.Column="1" Text="{Binding DeviceInfo.BluetoothAddress}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                    </Grid>
+                    <Separator Background="{DynamicResource BorderSubtleBrush}" Margin="0,0,0,12" />
+
+                    <Grid Margin="0,0,0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Active Audio Codec" Foreground="{DynamicResource TextSecondaryBrush}" />
+                        <TextBlock Grid.Column="1" Text="{Binding DeviceInfo.AudioCodec}" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Actions Bar -->
+            <Border Style="{DynamicResource ModernCardStyle}" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Device Management" Style="{StaticResource SectionHeaderStyle}" Margin="0,0,0,14" />
+
+                    <WrapPanel Orientation="Horizontal">
+                        <Button Style="{StaticResource SecondaryButtonStyle}" 
+                                Content="Reconnect" Margin="0,0,10,10"
+                                Command="{Binding ReconnectCommand}" />
+
+                        <Button Style="{StaticResource SecondaryButtonStyle}" 
+                                Content="Disconnect" Margin="0,0,10,10"
+                                Command="{Binding DisconnectCommand}" />
+
+                        <Button Style="{StaticResource SecondaryButtonStyle}" 
+                                Content="Open Windows Bluetooth Settings" Margin="0,0,10,10"
+                                Command="{Binding OpenBluetoothSettingsCommand}" />
+
+                        <Button Style="{StaticResource SecondaryButtonStyle}" 
+                                Content="Check for Firmware Update" Margin="0,0,10,10"
+                                Command="{Binding CheckFirmwareUpdateCommand}" />
+                    </WrapPanel>
+
+                    <!-- Status Notification Message -->
+                    <TextBlock Text="{Binding StatusMessage}" 
+                               FontSize="12"
+                               FontWeight="Medium"
+                               Margin="0,6,0,0" TextWrapping="Wrap">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource CaptionStyle}">
+                                <Setter Property="Foreground" Value="{DynamicResource SuccessBrush}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsStatusError}" Value="True">
+                                        <Setter Property="Foreground" Value="{DynamicResource SennheiserRedBrush}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

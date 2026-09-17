@@ -1,0 +1,230 @@
+<UserControl x:Class="SennheiserMomentum4.Views.SettingsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:SennheiserMomentum4.Models"
+             mc:Ignorable="d" 
+             d:DesignHeight="950" d:DesignWidth="900">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="28,24">
+        <StackPanel MaxWidth="800" HorizontalAlignment="Stretch">
+
+            <!-- Header -->
+            <TextBlock Text="Settings" Style="{StaticResource AppHeaderStyle}" />
+            <TextBlock Text="Application preferences, global keyboard shortcuts, and device configuration" 
+                       Style="{StaticResource SubheadStyle}" Margin="0,4,0,20" />
+
+            <!-- Appearance Section -->
+            <Border Style="{DynamicResource ModernCardStyle}" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Appearance" Style="{StaticResource SectionHeaderStyle}" Margin="0,0,0,4" />
+                    <TextBlock Text="Choose how Sennheiser Companion looks on Windows" Style="{StaticResource CaptionStyle}" Margin="0,0,0,16" />
+
+                    <WrapPanel Orientation="Horizontal">
+                        <RadioButton Style="{StaticResource SegmentedRadioButtonStyle}"
+                                     Content="☀ Light" Margin="0,0,8,0"
+                                     IsChecked="{Binding SelectedTheme, Mode=TwoWay, Converter={StaticResource EqualityConverter}, ConverterParameter=Light}" />
+
+                        <RadioButton Style="{StaticResource SegmentedRadioButtonStyle}"
+                                     Content="◐ Dark" Margin="0,0,8,0"
+                                     IsChecked="{Binding SelectedTheme, Mode=TwoWay, Converter={StaticResource EqualityConverter}, ConverterParameter=Dark}" />
+
+                        <RadioButton Style="{StaticResource SegmentedRadioButtonStyle}"
+                                     Content="💻 System Default"
+                                     IsChecked="{Binding SelectedTheme, Mode=TwoWay, Converter={StaticResource EqualityConverter}, ConverterParameter=System}" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Application Behavior Section -->
+            <Border Style="{DynamicResource ModernCardStyle}" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Application Behavior" Style="{StaticResource SectionHeaderStyle}" Margin="0,0,0,16" />
+
+                    <Grid Margin="0,0,0,14">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Start with Windows" FontSize="13" FontWeight="Medium" Foreground="{DynamicResource TextPrimaryBrush}" />
+                            <TextBlock Text="Automatically launch companion application upon Windows user login" Style="{StaticResource CaptionStyle}" />
+                        </StackPanel>
+                        <CheckBox Grid.Column="1" IsChecked="{Binding StartWithWindows, Mode=TwoWay}" VerticalAlignment="Center" />
+                    </Grid>
+                    <Separator Background="{DynamicResource BorderSubtleBrush}" Margin="0,0,0,14" />
+
+                    <Grid Margin="0,0,0,14">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Start Minimized" FontSize="13" FontWeight="Medium" Foreground="{DynamicResource TextPrimaryBrush}" />
+                            <TextBlock Text="Open directly to the Windows system tray without opening the main window" Style="{StaticResource CaptionStyle}" />
+                        </StackPanel>
+                        <CheckBox Grid.Column="1" IsChecked="{Binding StartMinimized, Mode=TwoWay}" VerticalAlignment="Center" />
+                    </Grid>
+                    <Separator Background="{DynamicResource BorderSubtleBrush}" Margin="0,0,0,14" />
+
+                    <Grid Margin="0,0,0,14">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Minimize to System Tray" FontSize="13" FontWeight="Medium" Foreground="{DynamicResource TextPrimaryBrush}" />
+                            <TextBlock Text="Keep application accessible in notification area when minimized" Style="{StaticResource CaptionStyle}" />
+                        </StackPanel>
+                        <CheckBox Grid.Column="1" IsChecked="{Binding MinimizeToTray, Mode=TwoWay}" VerticalAlignment="Center" />
+                    </Grid>
+                    <Separator Background="{DynamicResource BorderSubtleBrush}" Margin="0,0,0,14" />
+
+                    <Grid Margin="0,0,0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Windows Notifications" FontSize="13" FontWeight="Medium" Foreground="{DynamicResource TextPrimaryBrush}" />
+                            <TextBlock Text="Show notification badges for connect/disconnect and low battery states" Style="{StaticResource CaptionStyle}" />
+                        </StackPanel>
+                        <CheckBox Grid.Column="1" IsChecked="{Binding ShowNotifications, Mode=TwoWay}" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Global Keyboard Shortcuts Section -->
+            <Border Style="{DynamicResource ModernCardStyle}" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Global Keyboard Shortcuts" Style="{StaticResource SectionHeaderStyle}" Margin="0,0,4,0" />
+                    <TextBlock Text="Trigger headphone actions from any game, application, or full-screen window" Style="{StaticResource CaptionStyle}" Margin="0,0,0,16" />
+
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="220" />
+                            <ColumnDefinition Width="200" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Toggle ANC Mode" VerticalAlignment="Center" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" />
+                        <TextBox Grid.Column="1" Text="{Binding HotkeyToggleAnc, UpdateSourceTrigger=PropertyChanged}" Padding="8,4" />
+                    </Grid>
+
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="220" />
+                            <ColumnDefinition Width="200" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Toggle Transparency" VerticalAlignment="Center" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" />
+                        <TextBox Grid.Column="1" Text="{Binding HotkeyToggleTransparency, UpdateSourceTrigger=PropertyChanged}" Padding="8,4" />
+                    </Grid>
+
+                    <Grid Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="220" />
+                            <ColumnDefinition Width="200" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Play / Pause Playback" VerticalAlignment="Center" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" />
+                        <TextBox Grid.Column="1" Text="{Binding HotkeyPlayPause, UpdateSourceTrigger=PropertyChanged}" Padding="8,4" />
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{StaticResource SennheiserAccentButtonStyle}" 
+                                Content="Save Shortcuts" Margin="0,0,8,0"
+                                Command="{Binding SaveHotkeysCommand}" />
+                        <Button Style="{StaticResource SecondaryButtonStyle}" 
+                                Content="Reset to Defaults"
+                                Command="{Binding ResetHotkeysCommand}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Developer & Advanced Section -->
+            <Border Style="{DynamicResource ModernCardStyle}" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Developer &amp; Diagnostics" Style="{StaticResource SectionHeaderStyle}" Margin="0,0,0,16" />
+
+                    <!-- Demo Mode Switch (Critical Requirement) -->
+                    <Grid Margin="0,0,0,14">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Demo Mode (Simulation)" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource SennheiserRedBrush}" />
+                            <TextBlock Text="Simulates MOMENTUM 4 at 78% battery with active DSP &amp; ANC for testing without physical headphones" Style="{StaticResource CaptionStyle}" />
+                        </StackPanel>
+                        <CheckBox Grid.Column="1" IsChecked="{Binding DemoMode, Mode=TwoWay}" VerticalAlignment="Center" />
+                    </Grid>
+                    <Separator Background="{DynamicResource BorderSubtleBrush}" Margin="0,0,0,14" />
+
+                    <!-- Structured Log Viewer -->
+                    <TextBlock Text="Application Logs" FontSize="13" FontWeight="Medium" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,8" />
+                    <WrapPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <ComboBox SelectedValuePath="Content" SelectedValue="{Binding SelectedLogCategory, Mode=TwoWay}" Width="160" Margin="0,0,10,0" Padding="8,4">
+                            <ComboBoxItem Content="App" IsSelected="True" />
+                            <ComboBoxItem Content="Device" />
+                            <ComboBoxItem Content="Bluetooth" />
+                        </ComboBox>
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Content="Refresh Log" Margin="0,0,8,0" Command="{Binding RefreshLogsCommand}" />
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Content="Open Logs Folder" Command="{Binding OpenLogsFolderCommand}" />
+                    </WrapPanel>
+
+                    <!-- Log text area -->
+                    <Border Background="{DynamicResource CardSecondaryBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="4" Height="140" Margin="0,0,0,14">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <TextBox Text="{Binding LogContent, Mode=OneWay}" 
+                                     FontFamily="Consolas, Cascadia Code, monospace" 
+                                     FontSize="11" 
+                                     Background="Transparent" 
+                                     Foreground="{DynamicResource TextSecondaryBrush}"
+                                     BorderThickness="0" 
+                                     IsReadOnly="True" 
+                                     TextWrapping="Wrap" 
+                                     Padding="10" />
+                        </ScrollViewer>
+                    </Border>
+
+                    <!-- Reset App -->
+                    <Button Style="{StaticResource SecondaryButtonStyle}" 
+                            Content="Reset Application to Defaults" 
+                            HorizontalAlignment="Left"
+                            Command="{Binding ResetAllSettingsCommand}" />
+                </StackPanel>
+            </Border>
+
+            <!-- About Section -->
+            <Border Style="{DynamicResource ModernCardStyle}" Margin="0,0,0,20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Margin="0,0,16,0" VerticalAlignment="Center"
+                            CornerRadius="8" Background="#141518" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
+                            Padding="8" Width="52" Height="52">
+                        <Image Source="pack://application:,,,/Resources/Images/sennheiser_logo.png"
+                               Stretch="Uniform"
+                               RenderOptions.BitmapScalingMode="HighQuality" />
+                    </Border>
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock Text="About" Style="{StaticResource SectionHeaderStyle}" Margin="0,0,0,4" />
+                        <TextBlock Text="Sennheiser Companion for Windows" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                        <TextBlock Text="Version 1.0.0 • Designed for Windows 10 &amp; 11" Style="{StaticResource CaptionStyle}" Margin="0,2,0,4" />
+                        <TextBlock Text="Inspired by Sennheiser Smart Control. Built specifically for Windows desktop with Microsoft Fluent 2 architecture, Bluetooth LE GATT integration, and low-latency audio controls." 
+                                   Style="{StaticResource CaptionStyle}" TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Status Banner -->
+            <TextBlock Text="{Binding StatusMessage}" 
+                       Style="{StaticResource CaptionStyle}" 
+                       Foreground="{DynamicResource SennheiserRedBrush}" 
+                       Margin="4,0,0,10" />
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
